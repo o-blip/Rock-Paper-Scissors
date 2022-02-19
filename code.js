@@ -33,24 +33,34 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
-function game() {
-    let winsPlayer = 0;
-    let winsComputer = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Make your choice:", "Rock, Paper, Scissors");
-        if (playRound(playerSelection, computerPlay()) === 1) { // 1 means player won
-            winsPlayer += 1;
-        } else if (playRound(playerSelection, computerPlay()) === 0) { // 0 means computer won, dont keep track of ties
-            winsComputer += 1;
-        }
+function game(playerSelection) {
+    // First select the scores from the html, then just add 1 to each scores (js
+    // converts string to integer automatically)
+    const playerScore = document.querySelector("#playerScore");
+    const computerScore = document.querySelector("#computerScore");
+    const winner = document.querySelector("#winner");
 
-        console.log(winsPlayer, winsComputer);
+    if (playRound(playerSelection, computerPlay()) === 1) { // 1 means player won
+        winner.textContent = '';
+        playerScore.textContent++;
+    } else if (playRound(playerSelection, computerPlay()) === 0) { // 0 means computer won, dont keep track of ties
+        winner.textContent = '';
+        computerScore.textContent++;
     }
-
-    if (winsPlayer > winsComputer) {
-        console.log("You win");
-    } else if (winsPlayer < winsComputer) {
-        console.log("You lose");
-    } else console.log("Yout tie");
+    if (playerScore.textContent === '5') {
+        winner.textContent = "You won!";
+        playerScore.textContent = '0';
+        computerScore.textContent = '0';
+    } else if (computerScore.textContent === '5') {
+        winner.textContent = 'You lose!';
+        playerScore.textContent = '0';
+        computerScore.textContent = '0';
+    }
 }
-game();
+
+
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => game(button.id))
+});
