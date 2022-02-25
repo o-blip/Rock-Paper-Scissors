@@ -8,6 +8,7 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
+   /*
     if (playerSelection === computerSelection) {
         const message = "Tie! Play again.";
         return 2;
@@ -30,6 +31,7 @@ function playRound(playerSelection, computerSelection) {
         const message = "You Lose! Scissors beats Paper";
         return 0;
     }
+    */
 
     switch (playerSelection) {
         // First switch determine player's throw
@@ -64,24 +66,40 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
-function game() {
-    let winsPlayer = 0;
-    let winsComputer = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Make your choice:", "Rock, Paper, Scissors");
-        if (playRound(playerSelection, computerPlay()) === 1) { // 1 means player won
-            winsPlayer += 1;
-        } else if (playRound(playerSelection, computerPlay()) === 0) { // 0 means computer won, dont keep track of ties
-            winsComputer += 1;
-        }
+function game(playerSelection) {
+    // First select the scores from the html, then just add 1 to each scores
+    const playerScore = document.querySelector("#playerScore");
+    const computerScore = document.querySelector("#computerScore");
+    const winner = document.querySelector("#winner");
 
-        console.log(winsPlayer, winsComputer);
+    if (playerScore.textContent === '5' || computerScore.textContent === '5'){
+        winner.textContent = '';
+        playerScore.textContent = '0';
+        computerScore.textContent = '0';
+        console.log('hi');
+        return;
     }
 
-    if (winsPlayer > winsComputer) {
-        console.log("You win");
-    } else if (winsPlayer < winsComputer) {
-        console.log("You lose");
-    } else console.log("Yout tie");
+    if (playRound(playerSelection, computerPlay()) === 1) { // 1 means player won
+        winner.textContent = '';
+        playerScore.textContent++;
+    } else if (playRound(playerSelection, computerPlay()) === 0) { // 0 means computer won, dont keep track of ties
+        winner.textContent = '';
+        computerScore.textContent++;
+    } else{
+        winner.textContent = 'Tie!'
+    }
+    if (playerScore.textContent === '5') {
+        winner.textContent = "You won!";
+    } else if (computerScore.textContent === '5') {
+        winner.textContent = 'You lose!';
+
+    }
 }
-game();
+
+
+
+const buttons = document.querySelectorAll('input');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => game(button.id))
+});
