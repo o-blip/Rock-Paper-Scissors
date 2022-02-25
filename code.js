@@ -67,11 +67,18 @@ function playRound(playerSelection, computerSelection) {
 
 
 function game(playerSelection) {
-    // First select the scores from the html, then just add 1 to each scores (js
-    // converts string to integer automatically)
+    // First select the scores from the html, then just add 1 to each scores
     const playerScore = document.querySelector("#playerScore");
     const computerScore = document.querySelector("#computerScore");
     const winner = document.querySelector("#winner");
+
+    if (playerScore.textContent === '5' || computerScore.textContent === '5'){
+        winner.textContent = '';
+        playerScore.textContent = '0';
+        computerScore.textContent = '0';
+        console.log('hi');
+        return;
+    }
 
     if (playRound(playerSelection, computerPlay()) === 1) { // 1 means player won
         winner.textContent = '';
@@ -79,15 +86,14 @@ function game(playerSelection) {
     } else if (playRound(playerSelection, computerPlay()) === 0) { // 0 means computer won, dont keep track of ties
         winner.textContent = '';
         computerScore.textContent++;
+    } else{
+        winner.textContent = 'Tie!'
     }
     if (playerScore.textContent === '5') {
         winner.textContent = "You won!";
-        playerScore.textContent = '0';
-        computerScore.textContent = '0';
     } else if (computerScore.textContent === '5') {
         winner.textContent = 'You lose!';
-        playerScore.textContent = '0';
-        computerScore.textContent = '0';
+
     }
 }
 
