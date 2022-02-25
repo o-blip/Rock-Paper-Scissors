@@ -30,6 +30,37 @@ function playRound(playerSelection, computerSelection) {
         const message = "You Lose! Scissors beats Paper";
         return 0;
     }
+
+    switch (playerSelection) {
+        // First switch determine player's throw
+        // 1: player wins, 0 computer wins, 2 means tie
+        case 'Rock':
+            switch (computerSelection) {
+                case 'Paper':
+                    return 0;
+                case 'Scissors':
+                    return 1;
+            }
+            break;
+        case 'Scissors':
+            switch (computerSelection) {
+                case 'Paper':
+                    return 1;
+                case 'Rock':
+                    return 0;
+            }
+            break;
+        case 'Paper':
+            switch (computerSelection) {
+                case 'Rock':
+                    return 0;
+                case 'Scissors':
+                    return 1;
+            }
+            break;
+        default:
+            return 2;
+    }
 }
 
 
