@@ -1,6 +1,7 @@
 body{
     background-color: #8b25fe;
     font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
 }
 
 .buttons {
@@ -51,4 +52,12 @@ p {
     font-weight: bold;
     color: gold;
     text-shadow: 4px 4px black;
+}
+
+.selected-throw-player{
+    border:gold 8px solid;
+}
+
+.selected-throw-computer {
+    border: red 8px solid;
 }
